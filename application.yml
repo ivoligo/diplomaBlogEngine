@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/diploma?serverTimezone=UTC
+    username: root
+    password: jav@MySQ1
+  jpa.hibernate.ddl-auto: update
