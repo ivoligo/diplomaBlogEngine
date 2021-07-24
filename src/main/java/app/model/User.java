@@ -1,18 +1,21 @@
 package app.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
-    @javax.persistence.Id
+    @Id
     @NotNull
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "is_moderator", nullable = false)
     private byte isModerator;
@@ -31,6 +34,18 @@ public class User {
 
     private String code;
 
-    @Lob
+    @Type(type = "text")
     private String photo;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Set<Post> post;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<PostVotes> postVotes;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Comment> comment;
 }
